@@ -14,30 +14,34 @@
     </div>
 </template>
 <script>
+
     import Swiper from 'swiper'
     import 'swiper/dist/css/swiper.min.css';
     export default {
         props:['bannerList'],
         data(){
             return{
-
             }
         },
         methods:{
-
+          init(){
+            this.$nextTick(function () {
+              var mySwiper  = new Swiper('.swiper-container', {
+                autoplay: false,
+                slidesPerView :2,
+                navigation: {
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+                },
+                spaceBetween : '5%'
+              });
+            })
+          }
         },
         mounted(){
-//            setTimeout(()=>{
-                var swiper = new Swiper('.swiper-container', {
-                    autoplay: false,
-                    slidesPerView :2,
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                    spaceBetween : '5%'
-                });
-//            },300)
+          this.$nextTick(function(){
+            this.init();
+          })
         }
     }
 </script>

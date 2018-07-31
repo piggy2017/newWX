@@ -9,6 +9,8 @@ import projectDetail from '@/components/project-detail'
 import cropper from '@/components/cropper/cropper'
 import upload from '@/components/formdata/upload'
 import pdf from '@/components/pdf/pdf'
+import swidemo from '@/components/mint/swidemo'
+import author from '@/components/author/author'
 Vue.use(Router)
 
 export default new Router({
@@ -55,6 +57,16 @@ export default new Router({
         title: 'pdf'
       }
     },
+      {path:'/swidemo', name:'swidemo', component:swidemo,
+          meta:{
+              title: 'swidemo'
+          }
+      },
+      {path:'/author', name:'author', component:author,
+          meta:{
+              title: '验证'
+          }
+      },
     {path:'/upload', name:'upload', component:upload},
   ]
 })

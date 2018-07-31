@@ -30,11 +30,33 @@
       </div>
     </div>
     <div class="banner-list">
-      <div class="banner-list-title">景区精选楼盘</div>
+      <div class="banner-list-title">景区精选楼盘1</div>
       <!--<div class="banner-list-content">-->
         <!--<slider v-bind:bannerList="swiperList"></slider>-->
+          <!--<div class="swiper-container">-->
+              <!--<div class="swiper-wrapper">-->
+                  <!--<div class="swiper-slide" v-for="item in swiperList">-->
+                      <!--<router-link :to="'/projectDetail/'+item.id">-->
+                          <!--<img :src="item.cover" alt="">-->
+                          <!--<p class="item-name">{{item.name}}</p>-->
+                          <!--<p class="item-area">{{item.areaName}}</p>-->
+                      <!--</router-link>-->
+                  <!--</div>-->
+              <!--</div>-->
+              <!--<div class="swiper-button-prev"></div>-->
+              <!--<div class="swiper-button-next"></div>-->
+          <!--</div>-->
       <!--</div>-->
     </div>
+      <div class="box">
+          <mt-swipe :auto="3000" class="swiper-box">
+              <mt-swipe-item class="swiper-box-item" v-for="item in swiperList" :key="item.id">
+                  <router-link :to="'/projectDetail/'+item.id" class="swiper-box-item-a">
+                      <img :src="item.cover" alt="">
+                  </router-link>
+              </mt-swipe-item>
+          </mt-swipe>
+      </div>
     <div class="go-rights">
       <img src="../assets/wxsy1.png" alt="">
       <p class="go-rights-text">景区处处都有家</p>
@@ -47,11 +69,13 @@
 <script>
   import axios from 'axios'
   import data from '@/assets/js/util.js'
-//  import slider from '@/components/swiper/swiper'
   import hotelList from '@/components/hotelList/hotel-list'
+  import { Swipe, SwipeItem } from 'mint-ui';
+  import Vue from 'vue'
+  Vue.component('mt-swipe', Swipe);
+  Vue.component('mt-swipe-item', SwipeItem);
   export default {
     components:{
-//      slider:slider,
       hotelList:hotelList
     },
     data(){
@@ -64,7 +88,20 @@
       init(){
         axios.get(data.baseUrl+'projects').then(res=>{
           console.log(res)
-          this.swiperList=res.data.api_data
+          this.swiperList=res.data.api_data.slice(0,3);
+//          this.$nextTick(function(){
+//              var mySwiper  = new Swiper('.swiper-container', {
+//                  autoplay: false,
+//                  slidesPerView :2,
+//                  navigation: {
+//                      nextEl: '.swiper-button-next',
+//                      prevEl: '.swiper-button-prev',
+//                  },
+//                  observer:true, //修改swiper自己或子元素时，自动初始化swiper
+//                  observeParents:true,//修改swiper的父元素时，自动初始化swiper
+//                  spaceBetween : '5%'
+//              });
+//          })
         })
       },
       getHotelList(){
@@ -144,5 +181,50 @@
       width $width-148
       margin 0 auto 0 auto
       padding-bottom 1.2rem
-
+  .swiper-container,.swiper-wrapper{
+      height: 100%;
+      width: 100%;
+      position: relative;
+  }
+  .swiper-slide{
+      /*width: 7.1rem;*/
+      height: 100%;
+  }
+  .swiper-slide:not(:last-child){
+      /*margin-right:0.6rem ;*/
+  }
+  .swiper-slide img{
+      width: 100%;
+      height: 10rem;
+  }
+  .item-name{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      font-size: 0.65rem;
+      line-height: 1.2rem;
+  }
+  .item-area{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      font-size: 0.55rem;
+      line-height: 1rem;
+  }
+    .box{
+        width 100%
+        height 8rem
+    }
+    .swiper-box{
+        width 100%
+        height 100%
+    }
+    .swiper-box-item{
+        width 100%
+        height 100%
+    }
+    .swiper-box-item-a img{
+        height 8rem;
+        width 100%
+    }
 </style>

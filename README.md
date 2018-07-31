@@ -1,6 +1,6 @@
 # mobile
 
-> A Vue.js project
+> 基于vue全家桶的移动端项目
 
 ## Build Setup
 

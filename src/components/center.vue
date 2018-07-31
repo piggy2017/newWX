@@ -24,6 +24,12 @@
       <div class="link-div">
         <router-link to="/pdf" class="link-a">查看pdf文件</router-link>
       </div>
+        <div class="link-div">
+            <router-link to="/swidemo" class="link-a">mint-ui-swipe</router-link>
+        </div>
+        <div class="link-div">
+            <a class="link-a" href="tel:18682721627">call someone</a>
+        </div>
         <!--<div class="swt-box">-->
             <!--<button class="my-btn" @click="alt">弹框</button>11-->
         <!--</div>-->
