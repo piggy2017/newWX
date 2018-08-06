@@ -30,14 +30,6 @@
         <div class="link-div">
             <a class="link-a" href="tel:18682721627">call someone</a>
         </div>
-        <!--<div class="swt-box">-->
-            <!--<button class="my-btn" @click="alt">弹框</button>11-->
-        <!--</div>-->
-        <!--<div>-->
-            <!--<router-link to="/upload">-->
-                <!--formdata 上传图片预览-->
-            <!--</router-link>-->
-        <!--</div>-->
         <div class="next-trick">
             <div ref="msgDiv">{{msg}}</div>
             <div>Message got outside $nextTick: {{msg1}}</div>
@@ -58,11 +50,11 @@
             </video-player>
         </div>
       <div class="my-vi" style="margin-top: 20px;margin-bottom: 60px;">
-        <video width="100%"  controls="controls" x-webkit-airplay="true" webkit-playsinline="true">
-          <source src="http://7xkwa7.media1.z0.glb.clouddn.com/sample_video_L" type="video/ogg">
-          <source src="http://7xkwa7.media1.z0.glb.clouddn.com/sample_video_L" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+          <video id="my-video" width="100%" @click="stopPlay()"  controls="controls" x-webkit-airplay="true" webkit-playsinline="true">
+              <source src="http://7xkwa7.media1.z0.glb.clouddn.com/sample_video_L" type="video/ogg">
+              <source src="http://7xkwa7.media1.z0.glb.clouddn.com/sample_video_L" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
       </div>
 
       <div>
@@ -72,26 +64,6 @@
         456
         <p>123</p>
       </div>
-        <!--<div class="my-vi" style="margin-top: 20px;margin-bottom: 60px;">-->
-            <!--<video width="100%"  controls="controls">-->
-                <!--<source src="http://7xkwa7.media1.z0.glb.clouddn.com/sample_video_L" type="video/ogg">-->
-                <!--<source src="http://7xkwa7.media1.z0.glb.clouddn.com/sample_video_L" type="video/mp4">-->
-                <!--Your browser does not support the video tag.-->
-            <!--</video>-->
-        <!--</div>-->
-        <!--<div>-->
-            <!--<router-link to="/pdf">pdf文件</router-link>-->
-        <!--</div>-->
-        <!--<div>-->
-            <!--<router-link to="/cropper">cropper剪裁图片</router-link>-->
-        <!--</div>-->
-        <!--<div>-->
-            <!--<a href="https://www.baidu.com/">to demo page</a>-->
-        <!--</div>-->
-        <!--<div style="margin-top: 1rem;margin-bottom: 3rem;">-->
-            <!--<router-link to="/parent">to params test</router-link>-->
-        <!--</div>-->
-
 
     </div>
 </template>
@@ -109,6 +81,7 @@ import videojs from 'video.js'
                 myMoney:888888,
                 isActive:true,
                 isActive2:false,
+                start:0,
                 msg: 'Hello Vue.',
                 msg1: '',
                 msg2: '',
@@ -147,7 +120,37 @@ import videojs from 'video.js'
                 return this.$refs.videoPlayer.player
             }
         },
+        created(){
+            this.test();
+        },
         methods:{
+            stopPlay(){
+                console.log(123123123);
+                if(this.i == 0) {
+                    document.getElementById("my-video").pause();
+                    this.i = 1;
+                    console.log(this.i);
+                } else {
+                    document.getElementById('my-video').play();
+                    this.i = 0;
+                    console.log(this.i);
+                }
+            },
+            test(){
+                let that=this;
+                setInterval(function(){
+                    var video = document.getElementById("my-video");
+                    var time1 = video.currentTime;
+                    console.log(time1);
+                    console.log(that.start);
+                    if(time1-that.start>5){
+                        video.currentTime = that.start;
+                        console.log(video.currentTime);
+                    }
+                    that.start = time1;
+                    console.log(that.start);
+                },2000)
+            },
             chooseTab(){
                 this.isActive=true;
                 this.isActive2=false;
